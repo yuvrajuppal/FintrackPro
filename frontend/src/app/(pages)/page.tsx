@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useContext, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useContext, useMemo, useRef } from "react";
 import { RefreshContext } from "./layout";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from "recharts";
-import { ThemeToggleButton } from "@/components/skiper26";
+import { useThemeToggle } from "@/components/skiper26";
+import { useAppSelector } from "@/store/hooks";
 
 interface Transaction {
   id: string;
@@ -37,6 +38,14 @@ function DashboardPage() {
   });
   const [loading, setLoading] = useState(true);
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
+  const { isDark, toggleTheme } = useThemeToggle();
+  const { currency } = useAppSelector((s) => s.userslice);
+  const sym: Record<string, string> = { INR: "₹", USD: "$", EUR: "€", GBP: "£" };
+  const curSym = sym[currency] || "₹";
+  const clickSound = useRef<HTMLAudioElement | null>(null);
+  if (typeof window !== "undefined" && !clickSound.current) {
+    clickSound.current = new Audio("/clicksoundeffect.mp3");
+  }
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -98,7 +107,7 @@ function DashboardPage() {
   };
 
   const formatCurrency = (amount: number) =>
-    `₹${amount.toFixed(2)}`;
+    `${curSym}${amount.toFixed(2)}`;
 
   const formatDate = (dateStr: string) =>
     new Date(dateStr).toLocaleDateString("en-IN", {
@@ -194,7 +203,25 @@ function DashboardPage() {
           <h2 className="text-lg font-bold mb-5 text-gray-900 dark:text-gray-100">Preferences</h2>
           <div className="flex items-center justify-between mb-5">
             <span className="text-sm font-medium text-gray-900 dark:text-gray-100">Dark Mode</span>
-            <ThemeToggleButton className="!size-9" />
+            <button
+              onClick={() => { toggleTheme(); clickSound.current?.play(); }}
+              className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${isDark ? "bg-blue-600" : "bg-gray-300"}`}
+            >
+              <span
+                className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow flex items-center justify-center transition-transform duration-300 ${isDark ? "translate-x-6" : "translate-x-0"}`}
+              >
+                {isDark ? (
+                  <svg className="w-3 h-3 text-yellow-500" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                  </svg>
+                ) : (
+                  <svg className="w-3 h-3 text-yellow-500" viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="12" cy="12" r="5" />
+                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" strokeWidth="2" stroke="currentColor" fill="none" />
+                  </svg>
+                )}
+              </span>
+            </button>
           </div>
           <hr className="border-gray-100 dark:border-gray-700 mb-5" />
           <button className="w-full flex items-center justify-center gap-2 text-red-500 dark:text-red-400 border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 text-sm font-medium py-2.5 rounded-lg transition-colors">

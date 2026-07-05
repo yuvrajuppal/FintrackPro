@@ -1,12 +1,39 @@
 "use client";
 
 import React, { useState } from "react";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import { login } from "@/store/slice/userslice";
 
 function SettingsPage() {
+  const dispatch = useAppDispatch();
   const { userfullname, currency: userCurrency } = useAppSelector((s) => s.userslice);
   const [fullName, setFullName] = useState(userfullname);
   const [currency, setCurrency] = useState(userCurrency || "INR");
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  const handleSave = async () => {
+    setMsg("");
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/update", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fullName, currency }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setMsg(data.error || "Update failed");
+        return;
+      }
+      dispatch(login(data.user));
+      setMsg("Profile updated successfully");
+    } catch {
+      setMsg("Network error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -47,8 +74,19 @@ function SettingsPage() {
             </select>
           </div>
         </div>
-        <button className="bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-white dark:text-gray-900 text-sm font-medium px-5 py-2.5 rounded-lg transition-colors">
-          Save Changes
+
+        {msg && (
+          <p className={`text-sm mb-4 ${msg === "Profile updated successfully" ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
+            {msg}
+          </p>
+        )}
+
+        <button
+          onClick={handleSave}
+          disabled={loading}
+          className="bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 disabled:bg-gray-400 text-white dark:text-gray-900 text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
+        >
+          {loading ? "Saving..." : "Save Changes"}
         </button>
       </div>
     </>

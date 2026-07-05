@@ -110,3 +110,39 @@ export const checkIsLoggedInController = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const updateUserController = async (req, res) => {
+  try {
+    const token = req.cookies?.fintrackerpro_user_token;
+    if (!token) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    let decoded;
+    try {
+      decoded = jwt.verify(token, JWT_SECRET);
+    } catch {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const { fullName, currency } = req.body;
+
+    if (!fullName && !currency) {
+      return res.status(400).json({ error: "Nothing to update" });
+    }
+
+    const user = await prisma.user.update({
+      where: { uiid: decoded.userId },
+      data: {
+        ...(fullName !== undefined && { fullName }),
+        ...(currency !== undefined && { currency }),
+      },
+      select: { uiid: true, email: true, fullName: true, currency: true, createdAt: true, updatedAt: true },
+    });
+
+    res.status(200).json({ message: "Profile updated", user });
+  } catch (error) {
+    console.error("Update user error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
