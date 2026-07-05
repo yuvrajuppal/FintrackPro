@@ -10,7 +10,7 @@ interface SidebarProps {
 
 export default function Sidebar({ activePage, onAddTransaction }: SidebarProps) {
   return (
-    <aside className="w-[190px] bg-white border-r border-gray-200 flex flex-col shrink-0">
+    <aside className="w-[190px] bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col shrink-0">
       <div className="px-5 pt-5 pb-2">
         <div className="flex items-center gap-2">
           <svg className="w-7 h-7 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -20,7 +20,7 @@ export default function Sidebar({ activePage, onAddTransaction }: SidebarProps) 
           </svg>
           <div>
             <div className="font-bold text-sm leading-tight">FinTrack Pro</div>
-            <div className="text-[11px] text-gray-400">Enterprise Finance</div>
+            <div className="text-[11px] text-gray-400 dark:text-gray-500">Enterprise Finance</div>
           </div>
         </div>
       </div>
@@ -42,8 +42,8 @@ export default function Sidebar({ activePage, onAddTransaction }: SidebarProps) 
           href="/setting"
           className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
             activePage === "settings"
-              ? "bg-blue-50 text-blue-700"
-              : "text-gray-600 hover:bg-gray-100"
+              ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+              : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
           }`}
         >
           <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
@@ -55,7 +55,7 @@ export default function Sidebar({ activePage, onAddTransaction }: SidebarProps) 
       <div className="p-3">
         <button
           onClick={onAddTransaction}
-          className="w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium py-2.5 rounded-lg transition-colors"
+          className="w-full flex items-center justify-center gap-2 bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-white dark:text-gray-900 text-sm font-medium py-2.5 rounded-lg transition-colors"
         >
           <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />

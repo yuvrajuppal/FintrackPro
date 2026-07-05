@@ -65,21 +65,21 @@ export default function TransactionModal({ isOpen, onClose, onSuccess }: Transac
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:bg-black/70"
       onClick={onClose}
     >
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-xl border border-gray-200 w-full max-w-md p-6 shadow-lg"
+        className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 w-full max-w-md p-6 shadow-lg"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-lg font-bold text-gray-900">Add Transaction</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Add Transaction</h2>
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
           >
             <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
               <path
@@ -95,11 +95,11 @@ export default function TransactionModal({ isOpen, onClose, onSuccess }: Transac
         <div className="space-y-4">
           {/* Type */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">Type</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Type</label>
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option>Expense</option>
               <option>Income</option>
@@ -108,50 +108,50 @@ export default function TransactionModal({ isOpen, onClose, onSuccess }: Transac
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">Description</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Description</label>
             <input
               type="text"
               placeholder="e.g. Amazon, Salary, Coffee"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
-              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
           {/* Amount & Date */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Amount</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Amount</label>
               <input
                 type="number"
                 placeholder="0"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 required
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Date</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Date</label>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 required
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
           </div>
 
           {/* Category */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Category</label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
-              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">Select a category</option>
               <option>Food</option>
@@ -165,14 +165,14 @@ export default function TransactionModal({ isOpen, onClose, onSuccess }: Transac
         </div>
 
         {error && (
-          <p className="text-sm text-red-600 mt-4">{error}</p>
+          <p className="text-sm text-red-600 dark:text-red-400 mt-4">{error}</p>
         )}
 
         {/* Save Button */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gray-900 hover:bg-gray-800 disabled:bg-gray-400 text-white text-sm font-medium py-2.5 rounded-lg transition-colors mt-6"
+          className="w-full bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 disabled:bg-gray-400 text-white dark:text-gray-900 text-sm font-medium py-2.5 rounded-lg transition-colors mt-6"
         >
           {loading ? "Saving..." : "Save Transaction"}
         </button>

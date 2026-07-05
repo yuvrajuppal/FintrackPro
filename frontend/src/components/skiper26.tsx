@@ -493,7 +493,7 @@ export const useThemeToggle = ({
     if (typeof window === "undefined") return;
 
     const switchTheme = () => {
-      setTheme(theme === "light" ? "dark" : "light");
+      setTheme(resolvedTheme === "dark" ? "light" : "dark");
     };
 
     if (!document.startViewTransition) {
@@ -503,7 +503,7 @@ export const useThemeToggle = ({
 
     document.startViewTransition(switchTheme);
   }, [
-    theme,
+    resolvedTheme,
     setTheme,
     variant,
     start,
@@ -819,7 +819,7 @@ export const createAnimation = (
       name: `${variant}-${start}${blur ? "-blur" : ""}`,
       css: `
        ::view-transition-group(root) {
-        animation-duration: 0.7s;
+        animation-duration: 1.5s;
         animation-timing-function: var(--expo-out);
       }
             
@@ -869,7 +869,7 @@ export const createAnimation = (
       name: `${variant}-${start}${blur ? "-blur" : ""}`,
       css: `
        ::view-transition-group(root) {
-        animation-duration: 0.7s;
+        animation-duration: 1.5s;
         animation-timing-function: var(--expo-out);
       }
             
@@ -924,12 +924,12 @@ export const createAnimation = (
 
 ::view-transition-new(root) {
   mask: url('${url}') center / 0 no-repeat;
-  animation: scale 3s;
+  animation: scale 6s;
 }
 
 ::view-transition-old(root),
 .dark::view-transition-old(root) {
-  animation: scale 3s;
+  animation: scale 6s;
 }
 
 @keyframes scale {
@@ -961,13 +961,13 @@ export const createAnimation = (
         ::view-transition-new(root) {
           mask: url('${svg}') center / 0 no-repeat;
           mask-origin: content-box;
-          animation: scale 1s;
+          animation: scale 2s;
           transform-origin: center;
         }
 
         ::view-transition-old(root),
         .dark::view-transition-old(root) {
-          animation: scale 1s;
+          animation: scale 2s;
           transform-origin: center;
           z-index: -1;
         }
@@ -991,13 +991,13 @@ export const createAnimation = (
       ::view-transition-new(root) {
         mask: url('${svg}') ${start.replace("-", " ")} / 0 no-repeat;
         mask-origin: content-box;
-        animation: scale 1s;
+        animation: scale 2s;
         transform-origin: ${transformOrigin};
       }
 
       ::view-transition-old(root),
       .dark::view-transition-old(root) {
-        animation: scale 1s;
+        animation: scale 2s;
         transform-origin: ${transformOrigin};
         z-index: -1;
       }
@@ -1045,7 +1045,7 @@ export const createAnimation = (
       name: `${variant}-${start}${blur ? "-blur" : ""}`,
       css: `
       ::view-transition-group(root) {
-        animation-duration: 0.7s;
+        animation-duration: 1.5s;
         animation-timing-function: var(--expo-out);
       }
             
@@ -1118,7 +1118,7 @@ export const createAnimation = (
       name: `${variant}-${start}${blur ? "-blur" : ""}`,
       css: `
        ::view-transition-group(root) {
-        animation-duration: 1s;
+        animation-duration: 2s;
         animation-timing-function: var(--expo-out);
       }
             
@@ -1173,13 +1173,13 @@ export const createAnimation = (
       ::view-transition-new(root) {
         mask: url('${svg}') ${start.replace("-", " ")} / 0 no-repeat;
         mask-origin: content-box;
-        animation: scale-${start}${blur ? "-blur" : ""} 1s;
+        animation: scale-${start}${blur ? "-blur" : ""} 2s;
         transform-origin: ${transformOrigin};
         ${blur ? "filter: blur(2px);" : ""}
       }
       ::view-transition-old(root),
       .dark::view-transition-old(root) {
-        animation: scale-${start}${blur ? "-blur" : ""} 1s;
+        animation: scale-${start}${blur ? "-blur" : ""} 2s;
         transform-origin: ${transformOrigin};
         z-index: -1;
       }

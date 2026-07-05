@@ -9,12 +9,12 @@ interface NavbarProps {
 
 export default function Navbar({ userName, onLogout }: NavbarProps) {
   return (
-    <header className="h-14 bg-white border-b border-gray-200 flex items-center justify-end px-6 shrink-0">
+    <header className="h-14 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center justify-end px-6 shrink-0">
       <div className="flex items-center gap-4">
-        <span className="text-sm font-medium text-gray-600">{userName}</span>
+        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{userName}</span>
         <button
           onClick={onLogout}
-          className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-900 border border-gray-200 rounded-lg px-3 py-1.5 transition-colors"
+          className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 transition-colors"
         >
           <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
             <path

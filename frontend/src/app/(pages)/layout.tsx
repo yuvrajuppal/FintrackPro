@@ -70,7 +70,7 @@ export default function PagesLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="flex h-screen bg-gray-50 text-gray-900">
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
       <Sidebar activePage={activePage} onAddTransaction={() => setShowModal(true)} />
       <div className="flex-1 flex flex-col min-w-0">
         <Navbar userName={userfullname || "User"} onLogout={handleLogout} />
